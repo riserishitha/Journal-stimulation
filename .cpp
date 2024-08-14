@@ -1,4 +1,4 @@
-# 1. insertion sort - (12/8)
+//  1. insertion sort - (12/8)
 
 # include <iostream>
 using namespace std;
@@ -30,7 +30,7 @@ int main(){
 return 0;
 }
 
-# 2. bubble sort - (12/8)
+//  2. bubble sort - (12/8)
 
 # include <iostream>
 using namespace std;
@@ -67,7 +67,7 @@ return 0;
 }
 
 
-# 3. selection sort - (12/8)
+//  3. selection sort - (12/8)
 
 # include <iostream>
 using namespace std;
@@ -105,7 +105,7 @@ int main(){
 return 0;
 }
 
-# 4. Quick sort : (13/8)
+//  4. Quick sort : (13/8)
 
 # include <iostream>
 using namespace std;
@@ -128,7 +128,6 @@ int partition (int arr[],int low, int high){
     return (i+1);
 };
 
-// Quick Sort function
 void quickSort(int arr[], int low, int high) {
     if (low<high){
         int pi = partition(arr,low,high);
@@ -153,4 +152,86 @@ int main(){
     quickSort(arr,0,n-1);
     printArray(arr,n)
 return 0;
+}
+
+
+//  merge sort : (14/8)
+
+#include <iostream>
+using namespace std;
+
+// Function to merge two halves
+void merge(int array[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    // Create temporary arrays
+    int L[n1], R[n2];
+
+    // Copy data to temporary arrays L[] and R[]
+    for (int i = 0; i < n1; i++)
+        L[i] = array[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = array[mid + 1 + j];
+
+    // Merge the temporary arrays back into array[left..right]
+    int i = 0;  // Initial index of first subarray
+    int j = 0;  // Initial index of second subarray
+    int k = left;  // Initial index of merged subarray
+
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            array[k] = L[i];
+            i++;
+        } else {
+            array[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy the remaining elements of L[], if there are any
+    while (i < n1) {
+        array[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy the remaining elements of R[], if there are any
+    while (j < n2) {
+        array[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+// Function to implement Merge Sort
+void mergeSort(int array[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        // Recursively sort the first and second halves
+        mergeSort(array, left, mid);
+        mergeSort(array, mid + 1, right);
+
+        // Merge the sorted halves
+        merge(array, left, mid, right);
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int array[n];
+    for (int i = 0; i < n; i++) {
+        cin >> array[i];
+    }
+
+    mergeSort(array, 0, n - 1);
+
+    for (int i = 0; i < n; i++) {
+        cout << array[i] << " ";
+    }
+
+    return 0;
 }
